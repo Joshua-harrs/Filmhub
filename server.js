@@ -1,20 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const bodyParser = require('body-parser');
+const path = require('path');
 const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 const movieRoutes = require('./routes/movies');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
+const uri = "mongodb+srv://joshuaharrs:w0AasdJwVdKRoJF4@filmhub.hgcucqb.mongodb.net/?retryWrites=true&w=majority&appName=Filmhub";
+const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
 
-mongoose.connect('mongodb://localhost:27017/filmhub', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('✅ MongoDB connected'))
-  .catch(err => console.error(err));
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,4 +24,9 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => console.log(`🔥 Server running at http://localhost:${PORT}`));
+mongoose.connect(uri, clientOptions)
+  .then(() => {
+    console.log("Connected to MongoDB!");
+    app.listen(PORT, () => console.log(`🔥 Server running at http://localhost:${PORT}`));
+  })
+  .catch(console.error);
