@@ -1,0 +1,15 @@
+.watch-btn {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  background: #ff0055;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.watch-btn:hover {
+  background: #ff3366;
+}
