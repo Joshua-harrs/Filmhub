@@ -9,6 +9,7 @@ export default function Login({ setUser }) {
   const submit = async (e) => {
     e.preventDefault()
     setError('')
+    console.log("API URL:", import.meta.env.VITE_API_URL)
     try {
       const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { email, password })
       localStorage.setItem('user', JSON.stringify(data))
